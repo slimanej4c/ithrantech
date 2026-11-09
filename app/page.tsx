@@ -15,8 +15,8 @@ const projects = [
       "LANGUAGE LEARNING THROUGH CHALLENGES"
     ],
     "status": [
-      "Application d’apprentissage",
-      "Learning application"
+      "Disponible sur Google Play",
+      "Available on Google Play"
     ],
     "description": [
       "Une application pour apprendre les langues à travers des défis, travailler le vocabulaire et explorer la grammaire dans une interface ludique.",
@@ -32,7 +32,12 @@ const projects = [
       "vocarya2.png"
     ],
     "color": "peach",
-    "number": "01"
+    "number": "01",
+    "url": "https://play.google.com/store/apps/details?id=com.learnrepit&hl=fr_CA",
+    "linkLabel": [
+      "Voir sur Google Play",
+      "View on Google Play"
+    ]
   },
   {
     "name": "Inspectra",
@@ -84,7 +89,12 @@ const projects = [
       "evac studio.jpeg"
     ],
     "color": "mint",
-    "number": "03"
+    "number": "03",
+    "url": "https://evacstudio.ithrantech.com/",
+    "linkLabel": [
+      "Visiter le site",
+      "Visit website"
+    ]
   },
   {
     "name": "Smart HSE",
@@ -290,27 +300,34 @@ const projects = [
     "number": "11"
   },
   {
-    "name": "Podcast Learning",
+    "name": "ADN Concept",
     "type": "client",
     "tag": [
-      "ÉCOUTE & PROGRESSION PÉDAGOGIQUE",
-      "LISTENING & LEARNING PROGRESS"
+      "PODCASTS PÉDAGOGIQUES",
+      "EDUCATIONAL PODCASTS"
     ],
     "status": [
-      "Prototype client",
-      "Client prototype"
+      "En production",
+      "In production"
     ],
     "description": [
-      "Une application pour organiser des collections audio et suivre la progression d’écoute, pensée pour une école accompagnant environ 150 apprenants par semaine.",
-      "An application to organise audio collections and track listening progress, designed for a school supporting approximately 150 learners weekly."
+      "Une plateforme de podcasts pédagogiques. L’enseignant attribue des parcours d’écoute, les élèves y accèdent par un lien sans mot de passe et peuvent reprendre là où ils se sont arrêtés. La progression est suivie par élève ou par classe.",
+      "An educational podcast platform. Teachers assign listening activities, students access them via a password-free link and can resume where they left off. Teachers can track progress by student or class."
     ],
     "stack": [
       "Audio",
       "Reporting"
     ],
-    "images": [],
+    "images": [
+      "adn-concept.png"
+    ],
     "color": "peach",
-    "number": "12"
+    "number": "12",
+    "url": "https://adnconcept.ithrantech.com/",
+    "linkLabel": [
+      "Visiter le site",
+      "Visit website"
+    ]
   }
 ];
 function Arrow({diagonal=false}:{diagonal?:boolean}) {return <span aria-hidden="true">{diagonal?'↗':'↗'}</span>}
@@ -325,7 +342,7 @@ function ProjectGallery({project,lang}:{project:Project;lang:Lang}) {
  if (!project.images.length) return <Preview kind={project.color}/>;
  return <div className="project-gallery"><div className={`gallery-stage preview-${project.color}`}><Image src={`/images/${encodeURIComponent(project.images[active])}`} alt={`${project.name} — ${lang==='fr'?'capture':'screenshot'} ${active+1}`} width={1600} height={1000} sizes="(max-width: 700px) 94vw, 900px" style={{width:'100%',height:'auto',maxHeight:'65vh',objectFit:'contain'}} /></div>{project.images.length>1&&<div className="gallery-thumbnails" aria-label={lang==='fr'?'Captures du projet':'Project screenshots'}>{project.images.map((file,i)=><button key={file} aria-label={`${lang==='fr'?'Afficher la capture':'Show screenshot'} ${i+1}`} aria-pressed={active===i} onClick={()=>setActive(i)}><Image src={`/images/${encodeURIComponent(file)}`} alt="" width={90} height={60} style={{objectFit:'contain'}}/><span>0{i+1}</span></button>)}</div>}</div>;
 }
-export default function Home(){const [lang,setLang]=useState<Lang>('fr');const [filter,setFilter]=useState('all');const [selected,setSelected]=useState<number|null>(null);const [menu,setMenu]=useState(false);const t=content[lang];const n=lang==='fr'?0:1;
+export default function Home(){const [lang,setLang]=useState<Lang>('fr');const [filter,setFilter]=useState('all');const [selected,setSelected]=useState<number|null>(null);const [menu,setMenu]=useState(false);const t=content[lang];const n=lang==='fr'?0:1;const selectedProject=selected===null?null:projects[selected];
 useEffect(()=>{const saved=localStorage.getItem('portfolio-language');if(saved==='en'||saved==='fr')setLang(saved)},[]);
 useEffect(()=>{document.documentElement.lang=lang;localStorage.setItem('portfolio-language',lang)},[lang]);
 useEffect(()=>{if(selected===null)return;const close=(e:KeyboardEvent)=>{if(e.key==='Escape')setSelected(null)};document.addEventListener('keydown',close);const prev=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.removeEventListener('keydown',close);document.body.style.overflow=prev}},[selected]);
@@ -336,4 +353,4 @@ return <><header className="header"><a className="logo" href="#" aria-label="Ith
 <section id="expertise" className="expertise section"><div className="expertise-intro"><p className="eyebrow"><span className="section-number">02 /</span>{t.expertise}</p><h2>{t.expertiseTitle}</h2><p>{t.expertiseDesc}</p><div className="expertise-mark" aria-hidden="true">✳</div></div><div className="services">{t.services.map((s,i)=><article key={s}><span className="service-icon">{['⌘','✧','▤'][i]}</span><div><h3>{s}</h3><p>{t.serviceDesc[i]}</p><div className="service-tech">{['Python · Django · Next.js · React · TypeScript','OpenAI API · OpenCV · Pillow · Pandas · Selenium','PostgreSQL · MySQL · Linux · Nginx · Git'][i]}</div></div><span className="service-number">0{i+1}</span></article>)}</div></section>
 <section id="journey" className="section journey"><div><p className="eyebrow"><span className="section-number">03 /</span>{t.journey}</p><h2>{t.journeyTitle}</h2><p className="journey-desc">{t.journeyDesc}</p><a className="text-link" href="https://comeup.com/fr/@ithran" target="_blank" rel="noreferrer">{lang==='fr'?'Mon profil ComeUp':'My ComeUp profile'} ↗</a></div><div className="timeline">{t.experience.map((e,i)=><article key={e}><div className="timeline-date">{[t.dates,'2018 — 2023','2026','2015 — 2017'][i]}</div><h3>{e}</h3><p>{t.expDesc[i]}</p></article>)}</div></section>
 <section id="contact" className="contact section"><div><p className="eyebrow">{t.contactLabel}</p><h2>{t.contactTitle}</h2><p>{t.contactDesc}</p><a className="button dark" href="mailto:slimanebenmayouf@mail.com">{t.email} ↗</a></div><div className="contact-details"><a href="mailto:slimanebenmayouf@mail.com">slimanebenmayouf@mail.com ↗</a><a href="tel:+15144490879">+1 514 449 0879 ↗</a><span>Slimane Benmayouf · IthranTech</span><span>Canada · {t.role}</span><a className="cv-link" href="/Slimane-Benmayouf-CV.txt" download>{t.cv} ↓</a></div><span className="contact-star" aria-hidden="true">✳</span></section></main><footer><a className="logo" href="#">ithran<span>tech.</span></a><span>© {new Date().getFullYear()} Slimane Benmayouf</span><span>{t.footer}</span><a href="#">{lang==='fr'?'Retour en haut':'Back to top'} ↑</a></footer>
-{selected!==null&&<div className="modal-backdrop" onClick={()=>setSelected(null)}><dialog open aria-modal="true" aria-labelledby="project-title" className="project-modal" onClick={e=>e.stopPropagation()}><button className="modal-close" autoFocus onClick={()=>setSelected(null)}>{t.close} ×</button><ProjectGallery key={selected} project={projects[selected]} lang={lang}/><div className="modal-content"><p className="eyebrow">{projects[selected].status[n]}</p><h2 id="project-title">{projects[selected].name}</h2><p>{projects[selected].description[n]}</p><div className="tags">{projects[selected].stack.map(s=><span key={s}>{s}</span>)}</div><small>{projects[selected].images.length ? (lang==='fr'?'Captures du projet · Cliquez sur une miniature pour changer de vue.':'Project screenshots · Select a thumbnail to change the view.') : t.note}</small><a className="button dark" href="mailto:slimanebenmayouf@mail.com">{t.talk} ↗</a></div></dialog></div>}</>}
+{selected!==null&&<div className="modal-backdrop" onClick={()=>setSelected(null)}><dialog open aria-modal="true" aria-labelledby="project-title" className="project-modal" onClick={e=>e.stopPropagation()}><button className="modal-close" autoFocus onClick={()=>setSelected(null)}>{t.close} ×</button><ProjectGallery key={selected} project={projects[selected]} lang={lang}/><div className="modal-content"><p className="eyebrow">{projects[selected].status[n]}</p><h2 id="project-title">{projects[selected].name}</h2><p>{projects[selected].description[n]}</p><div className="tags">{projects[selected].stack.map(s=><span key={s}>{s}</span>)}</div><small>{projects[selected].images.length > 1 ? (lang==='fr'?'Captures du projet · Cliquez sur une miniature pour changer de vue.':'Project screenshots · Select a thumbnail to change the view.') : projects[selected].images.length === 1 ? (lang==='fr'?'Capture du projet':'Project screenshot') : t.note}</small>{selectedProject?.url ? <a className="button dark" href={selectedProject.url} target="_blank" rel="noopener noreferrer">{selectedProject.linkLabel[n]} ↗</a> : <a className="button dark" href="mailto:slimanebenmayouf@mail.com">{t.talk} ↗</a>}</div></dialog></div>}</>}
