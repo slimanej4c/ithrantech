@@ -18,4 +18,4 @@ npm run build
 npm start
 ```
 
-Les textes et projets se trouvent dans `app/page.tsx`, les styles dans `app/globals.css`. Le CV original est proposé au téléchargement au format texte. Les polices Google Fonts disposent de polices de repli système. Aucun formulaire ni service externe n’est requis : les liens de contact utilisent email et téléphone.
+Les textes et projets se trouvent dans `app/page.tsx`, les styles dans `app/globals.css`. Le CV est proposé au téléchargement au format PDF. Les polices Google Fonts disposent de polices de repli système. Aucun formulaire ni service externe n’est requis : les liens de contact utilisent email et téléphone.
